@@ -28,13 +28,13 @@ class BooksApp extends React.Component {
 
   updateBookShelf(book, newShelf) {
     /* TODO add condition when newShelf is 'none', delete the book from the state */
-    let copyState = Object.assign([], this.state);
-    const index = copyState.myBooks.findIndex((element) => {
+    let myNewBooks = [...this.state.myBooks];
+    const index = myNewBooks.findIndex((element) => {
       return element.id === book.id;
     });
-    copyState.myBooks[index].shelf = newShelf;
+    myNewBooks[index].shelf = newShelf;
     BooksAPI.update(book, newShelf);
-    this.setState({myBooks: copyState.myBooks});
+    this.setState({myBooks: myNewBooks});
   }
 
   render() {
