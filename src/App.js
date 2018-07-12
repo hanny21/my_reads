@@ -12,13 +12,29 @@ class BooksApp extends React.Component {
     this.state = {
       myBooks: []
     };
+    this.updateBookShelf = this.updateBookShelf.bind(this);
   }
 
-  componentDidMount() {
+  showBooks() {
     BooksAPI.getAll().then((data) => {
       this.setState({myBooks: data});
       console.log(data);
     });
+  }
+
+  componentDidMount() {
+    this.showBooks();
+  }
+
+  updateBookShelf(book, newShelf) {
+    /* TODO add condition when newShelf is 'none', delete the book from the state */
+    let copyState = Object.assign([], this.state);
+    const index = copyState.myBooks.findIndex((element) => {
+      return element.id === book.id;
+    });
+    copyState.myBooks[index].shelf = newShelf;
+    BooksAPI.update(book, newShelf);
+    this.setState({myBooks: copyState.myBooks});
   }
 
   render() {
@@ -31,9 +47,18 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf name='Currently Reading' books={this.state.myBooks.filter((book) => book.shelf === 'currentlyReading')}/>
-                <Shelf name='Want to Read' books={this.state.myBooks.filter((book) => book.shelf === 'wantToRead')}/>
-                <Shelf name='Read'books={this.state.myBooks.filter((book) => book.shelf === 'read')}/>
+                <Shelf name='Currently Reading'
+                  updateBookShelf={this.updateBookShelf}
+                  books={this.state.myBooks.filter((book) => book.shelf === 'currentlyReading')}
+                />
+                <Shelf name='Want to Read'
+                  updateBookShelf={this.updateBookShelf}
+                  books={this.state.myBooks.filter((book) => book.shelf === 'wantToRead')}
+                />
+                <Shelf name='Read'
+                  updateBookShelf={this.updateBookShelf}
+                  books={this.state.myBooks.filter((book) => book.shelf === 'read')}
+                />
               </div>
             </div>
             <div className="open-search">
