@@ -30,7 +30,7 @@ class BookSearch extends React.Component {
     if (event.key === 'Enter') {
       BooksAPI.search(query.trim()).then((data) => {
         // if the query to API results in error, show no results
-        if(data.error) {
+        if(data === undefined || data.error) {
           this.setState({searchedBooks: []});
           document.querySelector('.search-books-results').innerHTML = 'No results :(';
           return;

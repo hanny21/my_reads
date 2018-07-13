@@ -17,6 +17,7 @@ class BooksApp extends React.Component {
 
   showBooks() {
     BooksAPI.getAll().then((data) => {
+      console.log(data);
       this.setState({myBooks: data});
     });
   }
@@ -37,15 +38,16 @@ class BooksApp extends React.Component {
     } else {
       if (newShelf !== 'none') {
         myNewBooks[index].shelf = newShelf;
-        BooksAPI.update(book, newShelf);
       } else {
         myNewBooks.splice(index, 1);
       }
     }
+    BooksAPI.update(book, newShelf);
     this.setState({myBooks: myNewBooks});
   }
 
   render() {
+    const { myBooks } = this.state;
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -57,15 +59,15 @@ class BooksApp extends React.Component {
               <div>
                 <Shelf name='Currently Reading'
                   updateBookShelf={this.updateBookShelf}
-                  books={this.state.myBooks.filter((book) => book.shelf === 'currentlyReading')}
+                  books={myBooks.filter((book) => book.shelf === 'currentlyReading')}
                 />
                 <Shelf name='Want to Read'
                   updateBookShelf={this.updateBookShelf}
-                  books={this.state.myBooks.filter((book) => book.shelf === 'wantToRead')}
+                  books={myBooks.filter((book) => book.shelf === 'wantToRead')}
                 />
                 <Shelf name='Read'
                   updateBookShelf={this.updateBookShelf}
-                  books={this.state.myBooks.filter((book) => book.shelf === 'read')}
+                  books={myBooks.filter((book) => book.shelf === 'read')}
                 />
               </div>
             </div>
@@ -77,7 +79,7 @@ class BooksApp extends React.Component {
 
         <Route path='/search' render={() => (
           <BookSearch
-            myBooks={this.state.myBooks}
+            myBooks={myBooks}
             updateBookShelf={this.updateBookShelf}
           />
         )} />
