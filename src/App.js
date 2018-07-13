@@ -18,7 +18,6 @@ class BooksApp extends React.Component {
   showBooks() {
     BooksAPI.getAll().then((data) => {
       this.setState({myBooks: data});
-      console.log(data);
     });
   }
 
@@ -68,7 +67,10 @@ class BooksApp extends React.Component {
         )} />
 
         <Route path='/search' render={() => (
-          <BookSearch />
+          <BookSearch
+            myBooks={this.state.myBooks}
+            updateBookShelf={this.updateBookShelf}
+          />
         )} />
 
       </div> // end the parent div

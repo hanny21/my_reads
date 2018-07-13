@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Book extends React.Component {  
+class Book extends React.Component {
   render() {
     const { book } = this.props;
+    // check if all fields are provided by API, set defaults
+    book.title = book.title === undefined ? 'untitled' : book.title;
+    book.authors = book.authors === undefined ? [] : book.authors;
+    book.shelf = book.shelf === undefined ? 'none' : book.shelf;
+    book.imageLinks = book.imageLinks === undefined ? [] : book.imageLinks;
+
     return <div className="book">
       <div className="book-top">
         <div className="book-cover"
