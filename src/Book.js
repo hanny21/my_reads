@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Book extends React.Component {
   render() {
-    const { book } = this.props;
+    const { book, updateBookShelf } = this.props;
     // check if all fields are provided by API, set defaults
     book.title = book.title === undefined ? 'untitled' : book.title;
     book.authors = book.authors === undefined ? [] : book.authors;
@@ -17,9 +17,7 @@ class Book extends React.Component {
         </div>
         <div className="book-shelf-changer">
           <select defaultValue={book.shelf}
-            onChange={(event) => {
-              this.props.updateBookShelf(book, event.target.value);
-            }}>
+            onChange={(event) => updateBookShelf(book, event.target.value)}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

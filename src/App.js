@@ -31,8 +31,17 @@ class BooksApp extends React.Component {
     const index = myNewBooks.findIndex((element) => {
       return element.id === book.id;
     });
-    myNewBooks[index].shelf = newShelf;
-    BooksAPI.update(book, newShelf);
+    if ((index === -1) && (newShelf !== 'none')) {
+      book.shelf = newShelf;
+      myNewBooks.push(book);
+    } else {
+      if (newShelf !== 'none') {
+        myNewBooks[index].shelf = newShelf;
+        BooksAPI.update(book, newShelf);
+      } else {
+        myNewBooks.splice(index, 1);
+      }
+    }
     this.setState({myBooks: myNewBooks});
   }
 
