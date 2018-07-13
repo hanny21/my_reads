@@ -2,6 +2,8 @@
 
 This is my implementation of MyReads project for Udacity's Front-End Web Developer Nanodegree Program.
 
+## [view live demo](https://myreads-udacityproject.herokuapp.com/)
+
 ## App Functionality
 * The main page has 3 categories for books: Currently Reading, Want to Read, Read.
 * Each book has a control which allows user to move from one category to another.
