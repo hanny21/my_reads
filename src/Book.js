@@ -8,7 +8,7 @@ class Book extends React.Component {
     book.title = book.title === undefined ? 'untitled' : book.title;
     book.authors = book.authors === undefined ? [] : book.authors;
     book.shelf = book.shelf === undefined ? 'none' : book.shelf;
-    book.imageLinks = book.imageLinks === undefined ? [] : book.imageLinks;
+    book.imageLinks = book.imageLinks === undefined ? {} : book.imageLinks;
 
     return <div className="book">
       <div className="book-top">
